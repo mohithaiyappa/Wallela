@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/category"
+        >
+        <menu>
+            <item
+                android:id="@+id/flat_art"
+                android:title="@string/flat_art" />
+            <item
+                android:id="@+id/photography"
+                android:title="@string/photography" />
+            <item
+                android:id="@+id/superhero"
+                android:title="@string/superhero" />
+            <item
+                android:id="@+id/favorites"
+                android:title="@string/favorites" />
+        </menu>
+    </item>
+    <group
+        android:id="@+id/others"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/contact_us"
+            android:title="@string/contact_us" />
+    </group>
+</menu>

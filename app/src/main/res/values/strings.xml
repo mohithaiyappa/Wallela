@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Wallela</string>
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="flat_art">*     Flat-Art</string>
+    <string name="photography">*     Photography</string>
+    <string name="superhero">*     SuperHero</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="favorites">*     Favorites</string>
+    <string name="category">Category</string>
+
+</resources>

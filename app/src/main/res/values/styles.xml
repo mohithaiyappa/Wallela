@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="FabThemeMini" parent="Theme.AppCompat">
+        <item name="fab_size">mini</item>
+        <item name="fab_shadowColor">#66000000</item>
+        <item name="fab_colorNormal">#1BD9D3</item>
+        <item name="fab_colorPressed">#1FF8F1</item>
+        <item name="menu_colorNormal">#1BD9D3</item>
+        <item name="menu_colorPressed">#1FF8F1</item>
+    </style>
+    <style name="splashScreenTheme" parent="AppTheme">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+</resources>
