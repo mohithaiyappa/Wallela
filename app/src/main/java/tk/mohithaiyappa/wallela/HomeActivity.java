@@ -2,16 +2,22 @@ package tk.mohithaiyappa.wallela;
 
 import android.database.Cursor;
 import android.os.AsyncTask;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -24,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
+
+
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private ArrayList<UrlDataStorage> arrayList = new ArrayList<>();
@@ -38,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -50,7 +59,6 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Flat-Art/");
         layoutManager = new GridLayoutManager(this, 2);
@@ -59,10 +67,8 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         inFavorites = false;
 
-
         adapter = new RecyclerAdapter(arrayList, HomeActivity.this);
         recyclerView.setAdapter(adapter);
-
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -112,6 +118,7 @@ public class HomeActivity extends AppCompatActivity {
         loadDataSet();
     }
 
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -120,6 +127,7 @@ public class HomeActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 
     public void loadDataSet() {
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -134,8 +142,6 @@ public class HomeActivity extends AppCompatActivity {
 
                 }
                 adapter.notifyDataSetChanged();
-
-
             }
 
             @Override
@@ -145,17 +151,21 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
     public void freeMemory() {
         System.runFinalization();
         Runtime.getRuntime().gc();
         System.gc();
     }
 
+
     public void loadFavorites() {
         new loadAsycFavorites().execute();
     }
 
+
     public class loadAsycFavorites extends AsyncTask {
+
         private boolean aBoolean;
 
         @Override
@@ -187,11 +197,14 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(inFavorites){
+        if (inFavorites) {
             new loadAsycFavorites().execute();
         }
     }
+
+
 }

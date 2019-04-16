@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     tools:context=".MainActivity">
-   <com.airbnb.lottie.LottieAnimationView
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/animation_view"
-        app:lottie_fileName="splash_screen_anim.json"
         app:lottie_autoPlay="false"
-        app:lottie_loop="false"/>
+        app:lottie_fileName="splash_screen_anim.json"
+        app:lottie_loop="false" />
 
 </LinearLayout>

@@ -12,7 +12,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+
     private View decorView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void hideSystemUI() {
         decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
+
     private void showSystemUI() {
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -84,10 +89,12 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
+
     private void freeMemory() {
         System.runFinalization();
         Runtime.getRuntime().gc();
         System.gc();
     }
+
 
 }
