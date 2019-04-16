@@ -1,5 +1,6 @@
 package tk.mohithaiyappa.wallela;
 
+import android.animation.Animator;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -317,11 +318,6 @@ public class FullscreenActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            }
-            animationView.setImageBitmap(bitmapHighRes);
-            animationView.setScaleType(ImageView.ScaleType.FIT_XY);
             fabSetWallpaper.setLabelText("Set As Wallpaper");
             fabDownload.setLabelText("Download");
             fabLockScreen.setLabelText("Set as LockScreen");
@@ -364,6 +360,7 @@ public class FullscreenActivity extends AppCompatActivity {
                         Toast.makeText(FullscreenActivity.this, "Could not set Wallpaper", Toast.LENGTH_SHORT).show();
                     }
                 }
+                fabMenu.close(true);
 
             }
         });
@@ -386,11 +383,12 @@ public class FullscreenActivity extends AppCompatActivity {
                     bitmapHighRes.compress(Bitmap.CompressFormat.JPEG, 90, out);
                     out.flush();
                     out.close();
-
+                    Toast.makeText(FullscreenActivity.this, "saved in "+root+"/Wallela", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(FullscreenActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                 }
+                fabMenu.close(true);
             }
         });
 
@@ -417,6 +415,7 @@ public class FullscreenActivity extends AppCompatActivity {
                         } else
                             Toast.makeText(FullscreenActivity.this, "Could not Remove", Toast.LENGTH_SHORT).show();
                 }
+                fabMenu.close(true);
 
             }
         });
@@ -437,6 +436,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(FullscreenActivity.this, "Need Android N or above", Toast.LENGTH_LONG).show();
                 }
+                fabMenu.close(true);
             }
         });
 
@@ -444,6 +444,38 @@ public class FullscreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (fabMenu.isOpened()) fabMenu.close(true);
+            }
+        });
+
+        animationView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                if(bitmapHighRes!=null){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+                    }
+                    animationView.setImageBitmap(bitmapHighRes);
+                    animationView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    animationView.cancelAnimation();
+
+                }
+                if(animationView.isAnimating())
+                    Toast.makeText(FullscreenActivity.this, "still animating", Toast.LENGTH_SHORT).show();
             }
         });
     }
