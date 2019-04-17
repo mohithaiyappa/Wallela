@@ -102,6 +102,15 @@ public class HomeActivity extends AppCompatActivity {
                         recyclerView.smoothScrollToPosition(0);
                         break;
                     }
+                    case R.id.test: {
+                        databaseReference = firebaseDatabase.getReference("Test/");
+                        loadDataSet();
+                        toolbar.setTitle("Test");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        inFavorites = false;
+                        recyclerView.smoothScrollToPosition(0);
+                        break;
+                    }
                     case R.id.favorites: {
                         recyclerView.scrollToPosition(0);
                         loadFavorites();
