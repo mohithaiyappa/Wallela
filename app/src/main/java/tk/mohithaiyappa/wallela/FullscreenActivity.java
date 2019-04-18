@@ -1,8 +1,12 @@
 package tk.mohithaiyappa.wallela;
 
+import android.Manifest;
 import android.animation.Animator;
+import android.app.Activity;
 import android.app.WallpaperManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,6 +16,8 @@ import android.os.Environment;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.view.View;
 import android.view.WindowManager;
@@ -43,6 +49,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private URL uri;
     private FloatingActionButton fabSetWallpaper, fabDownload, fabSetAsFavorite, fabLockScreen;
     private FloatingActionMenu fabMenu;
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS= 7;
 
 
     @Override
@@ -153,26 +160,23 @@ public class FullscreenActivity extends AppCompatActivity {
         fabDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String root = Environment.getExternalStorageDirectory().toString();
-                File myDir = new File(root + "/Wallela");
-                myDir.mkdirs();
-                Random generator = new Random();
-                int n = 10000;
-                n = generator.nextInt(n);
-                String fname = "Image-" + n + ".jpg";
-                File file = new File(myDir, fname);
-                if (file.exists()) file.delete();
-                try {
-                    FileOutputStream out = new FileOutputStream(file);
-                    bitmapHighRes.compress(Bitmap.CompressFormat.JPEG, 90, out);
-                    out.flush();
-                    out.close();
-                    Toast.makeText(FullscreenActivity.this, "Downloaded to " + root + "/Wallela", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(FullscreenActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                if (ContextCompat.checkSelfPermission(FullscreenActivity.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(FullscreenActivity.this, "Need permission to download...", Toast.LENGTH_SHORT).show();
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(FullscreenActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        //already shown reason
+                    } else {
+                        // No explanation needed; request the permission
+                        ActivityCompat.requestPermissions(FullscreenActivity.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                    }
+                } else {
+                    // Permission has already been granted
+                    downloadWallpaper();
                 }
-                fabMenu.close(true);
             }
         });
 
@@ -264,6 +268,53 @@ public class FullscreenActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    private void downloadWallpaper(){
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/Wallela");
+        myDir.mkdirs();
+        Random generator = new Random();
+        int n = 10000;
+        n = generator.nextInt(n);
+        String fname = "Image-" + n + ".jpg";
+        File file = new File(myDir, fname);
+        if (file.exists()) file.delete();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            bitmapHighRes.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+            Toast.makeText(FullscreenActivity.this, "Downloaded to " + root + "/Wallela", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(FullscreenActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+        }
+        fabMenu.close(true);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        // If request is cancelled, the result arrays are empty.
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // permission was granted, yay! Do the
+                downloadWallpaper();
+                // contacts-related task you need to do.
+            } else {
+                // permission denied, boo! Disable the
+                // functionality that depends on this permission.
+                Toast.makeText(this, "Need permission", Toast.LENGTH_SHORT).show();
+            }
+            return;
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
     }
 
 
