@@ -302,18 +302,12 @@ public class FullscreenActivity extends AppCompatActivity {
         if (requestCode == MY_PERMISSIONS_REQUEST_READ_CONTACTS) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // permission was granted, yay! Do the
+
                 downloadWallpaper();
-                // contacts-related task you need to do.
             } else {
-                // permission denied, boo! Disable the
-                // functionality that depends on this permission.
                 Toast.makeText(this, "Need permission", Toast.LENGTH_SHORT).show();
             }
-            return;
 
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 
