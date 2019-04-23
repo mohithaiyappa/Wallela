@@ -49,7 +49,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private URL uri;
     private FloatingActionButton fabSetWallpaper, fabDownload, fabSetAsFavorite, fabLockScreen;
     private FloatingActionMenu fabMenu;
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS= 7;
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 7;
 
 
     @Override
@@ -109,6 +109,7 @@ public class FullscreenActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
+            fabMenu.setVisibility(View.VISIBLE);
             fabSetWallpaper.setLabelText("Set As Wallpaper");
             fabDownload.setLabelText("Download");
             fabLockScreen.setLabelText("Set as LockScreen");
@@ -136,6 +137,7 @@ public class FullscreenActivity extends AppCompatActivity {
         fabSetAsFavorite = findViewById(R.id.saveAsFavorite);
         fabLockScreen = findViewById(R.id.setAsLockScreen);
         fabMenu = findViewById(R.id.menu);
+        fabMenu.setVisibility(View.INVISIBLE);
 
 
         fabSetWallpaper.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +145,7 @@ public class FullscreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 WallpaperManager manager = WallpaperManager.getInstance(getApplicationContext());
                 if (bitmapHighRes != null) {
+                    fabMenu.close(true);
                     try {
                         manager.setBitmap(bitmapHighRes);
                         Toast.makeText(FullscreenActivity.this, "Setting Wallpaper...", Toast.LENGTH_SHORT).show();
@@ -151,7 +154,7 @@ public class FullscreenActivity extends AppCompatActivity {
                         Toast.makeText(FullscreenActivity.this, "Could not set Wallpaper", Toast.LENGTH_SHORT).show();
                     }
                 }
-                fabMenu.close(true);
+
 
             }
         });
@@ -271,7 +274,7 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
 
-    private void downloadWallpaper(){
+    private void downloadWallpaper() {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/Wallela");
         myDir.mkdirs();

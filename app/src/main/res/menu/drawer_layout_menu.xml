@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:title="@string/category"
-        >
+    <item android:title="@string/category">
         <menu>
             <item
                 android:id="@+id/flat_art"
@@ -13,12 +11,13 @@
             <item
                 android:id="@+id/superhero"
                 android:title="@string/superhero" />
+
+            <item
+                android:id="@+id/nature"
+                android:title="@string/nature" />
             <item
                 android:id="@+id/favorites"
                 android:title="@string/favorites" />
-            <item
-                android:id="@+id/test"
-                android:title="@string/superhero" />
         </menu>
     </item>
     <group

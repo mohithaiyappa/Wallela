@@ -6,11 +6,12 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="flat_art">*     Flat-Art</string>
-    <string name="photography">*     Photography</string>
-    <string name="superhero">*     SuperHero</string>
+    <string name="flat_art">\t\tFlat-Art</string>
+    <string name="photography">\t\tPhotography</string>
+    <string name="superhero">\t\tSuperHero</string>
     <string name="contact_us">Contact Us</string>
-    <string name="favorites">*     Favorites</string>
+    <string name="favorites">\t\tFavorites</string>
     <string name="category">Category</string>
+    <string name="nature">\t\tNature</string>
 
 </resources>
