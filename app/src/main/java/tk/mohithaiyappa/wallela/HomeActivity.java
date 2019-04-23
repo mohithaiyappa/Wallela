@@ -1,5 +1,6 @@
 package tk.mohithaiyappa.wallela;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 
@@ -117,6 +118,11 @@ public class HomeActivity extends AppCompatActivity {
                         toolbar.setTitle("Favorites");
                         drawerLayout.closeDrawer(GravityCompat.START);
                         inFavorites = true;
+                        break;
+                    }
+                    case R.id.contact_us: {
+                        Intent intent = new Intent(HomeActivity.this,ContactUsActivity.class);
+                        startActivity(intent);
                         break;
                     }
                 }

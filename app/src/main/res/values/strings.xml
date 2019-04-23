@@ -13,5 +13,9 @@
     <string name="favorites">\t\tFavorites</string>
     <string name="category">Category</string>
     <string name="nature">\t\tNature</string>
+    <string name="enter_subject">Write the Subject</string>
+    <string name="message">Message</string>
+    <string name="subject">Subject</string>
+    <string name="say_something">Say something..</string>
 
 </resources>
