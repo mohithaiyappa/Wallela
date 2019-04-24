@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.ads.MobileAds;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideSystemUI();
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
         setContentView(R.layout.activity_main);
         LottieAnimationView animationView = findViewById(R.id.animation_view);
         animationView.setImageAssetsFolder("images");
