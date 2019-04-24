@@ -125,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.contact_us: {
-                        Intent intent = new Intent(HomeActivity.this,ContactUsActivity.class);
+                        Intent intent = new Intent(HomeActivity.this, ContactUsActivity.class);
                         startActivity(intent);
                         break;
                     }
@@ -226,8 +226,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void initAdMob(){
-        adView= findViewById(R.id.adView);
+    private void initAdMob() {
+        adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
     }
