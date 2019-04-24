@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.core.view.GravityCompat;
@@ -43,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private boolean inFavorites;
+    private AdView adView;
 
 
     @Override
@@ -50,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        initAdMob();
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -219,6 +223,13 @@ public class HomeActivity extends AppCompatActivity {
         if (inFavorites) {
             new loadAsycFavorites().execute();
         }
+    }
+
+
+    private void initAdMob(){
+        adView= findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
 
