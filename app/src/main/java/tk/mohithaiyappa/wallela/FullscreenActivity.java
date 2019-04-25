@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,6 +52,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private FloatingActionButton fabSetWallpaper, fabDownload, fabSetAsFavorite, fabLockScreen;
     private FloatingActionMenu fabMenu;
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 7;
+    private InterstitialAd interstitialAd;
 
 
     @Override
@@ -64,6 +67,7 @@ public class FullscreenActivity extends AppCompatActivity {
         animationView = findViewById(R.id.full_screen_animation_view);
         animationView.playAnimation();
         init();
+        adInit();
         fabInit();
         animationView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +76,13 @@ public class FullscreenActivity extends AppCompatActivity {
                 else animationView.playAnimation();
             }
         });
+    }
+
+
+    private void adInit() {
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
 
@@ -153,6 +164,9 @@ public class FullscreenActivity extends AppCompatActivity {
                         e.printStackTrace();
                         Toast.makeText(FullscreenActivity.this, "Could not set Wallpaper", Toast.LENGTH_SHORT).show();
                     }
+                }
+                if(interstitialAd.isLoaded()){
+                    interstitialAd.show();
                 }
 
 
