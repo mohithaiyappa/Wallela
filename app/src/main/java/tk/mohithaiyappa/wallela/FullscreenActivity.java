@@ -221,7 +221,6 @@ public class FullscreenActivity extends AppCompatActivity {
                         } else
                             Toast.makeText(FullscreenActivity.this, "Could not Remove", Toast.LENGTH_SHORT).show();
                 }
-                fabMenu.close(true);
 
             }
         });
