@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -160,6 +161,7 @@ public class HomeActivity extends AppCompatActivity {
                     arrayList.add(urlDataStorage);
 
                 }
+                Collections.shuffle(arrayList);
                 adapter.notifyDataSetChanged();
             }
 
