@@ -57,7 +57,7 @@
                 android:layout_alignBottom="@+id/recycler_view"
                 android:layout_centerHorizontal="true"
                 ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                ads:adUnitId="ca-app-pub-2357150776599621/7502450570" />
 
 
         </RelativeLayout>

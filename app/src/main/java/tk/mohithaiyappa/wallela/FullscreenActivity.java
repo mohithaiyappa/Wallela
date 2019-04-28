@@ -81,7 +81,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
     private void adInit() {
         interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.setAdUnitId("ca-app-pub-2357150776599621/5979585538");
         interstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
