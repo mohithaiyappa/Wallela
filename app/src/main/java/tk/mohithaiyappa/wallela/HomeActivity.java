@@ -2,6 +2,7 @@ package tk.mohithaiyappa.wallela;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
@@ -128,6 +129,10 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.contact_us: {
                         Intent intent = new Intent(HomeActivity.this, ContactUsActivity.class);
                         startActivity(intent);
+                        break;
+                    }
+                    case R.id.privacy_policy: {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://wallela.flycricket.io/privacy.html")));
                         break;
                     }
                 }

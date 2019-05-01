@@ -17,5 +17,6 @@
     <string name="message">Message</string>
     <string name="subject">Subject</string>
     <string name="say_something">Say something..</string>
+    <string name="privacy_policy">Privacy policy</string>
 
 </resources>
