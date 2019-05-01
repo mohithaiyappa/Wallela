@@ -42,7 +42,10 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-2357150776599621~5545660639" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="54af932df682b7736b23abf87be4a262db7e3781" />
     </application>
 
 </manifest>
