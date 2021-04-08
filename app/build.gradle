@@ -51,4 +51,3 @@ dependencies {
     //Firebase Analytics
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
 }
-apply plugin: 'com.google.gms.google-services'
