@@ -1,31 +1,4 @@
-package tk.mohithaiyappa.wallela;
-
-class UrlDataStorage {
+package tk.mohithaiyappa.wallela
 
 
-    private String midResUrl,hiResUrl,lowResUrl;
-
-
-    UrlDataStorage(String midResUrl,String hiResUrl,String lowResUrl){
-        this.midResUrl=midResUrl;
-        this.hiResUrl=hiResUrl;
-        this.lowResUrl=lowResUrl;
-    }
-
-
-    String getMidResUrl() {
-        return midResUrl;
-    }
-
-
-    String getHiResUrl() {
-        return hiResUrl;
-    }
-
-
-    String getLowResUrl() {
-        return lowResUrl;
-    }
-
-
-}
+data class UrlDataStorage(val midResUrl: String?, val hiResUrl: String?, val lowResUrl: String?)

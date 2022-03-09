@@ -1,93 +1,60 @@
-package tk.mohithaiyappa.wallela;
+package tk.mohithaiyappa.wallela
 
-import android.content.Context;
-import android.content.Intent;
+import android.content.Context
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.facebook.drawee.view.SimpleDraweeView
+import tk.mohithaiyappa.wallela.FullscreenActivity
+import tk.mohithaiyappa.wallela.RecyclerAdapter.ImageViewHolder
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.util.ArrayList;
-
-
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ImageViewHolder> {
-
-
-    private ArrayList<UrlDataStorage> urlArrayList = new ArrayList<UrlDataStorage>();
-    private Context mContext;
-    private UrlDataStorage urlDataStorage;
-    private String TAG = "RecyclerAdapter";
-
-
-    public RecyclerAdapter(ArrayList<UrlDataStorage> urlArrayList, Context mContext) {
-        this.urlArrayList = urlArrayList;
-        this.mContext = mContext;
+class RecyclerAdapter(urlArrayList: ArrayList<UrlDataStorage?>?, mContext: Context) :
+    RecyclerView.Adapter<ImageViewHolder>() {
+    private var urlArrayList: ArrayList<UrlDataStorage?>? = ArrayList()
+    private val mContext: Context
+    private var urlDataStorage: UrlDataStorage? = null
+    private val TAG = "RecyclerAdapter"
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ImageViewHolder {
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.album_layout_for_rv, viewGroup, false)
+        return ImageViewHolder(view)
     }
 
-
-    @NonNull
-    @Override
-    public RecyclerAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.album_layout_for_rv, viewGroup, false);
-        ImageViewHolder imageViewHolder = new ImageViewHolder(view);
-        return imageViewHolder;
+    override fun onBindViewHolder(imageViewHolder: ImageViewHolder, i: Int) {
+        urlDataStorage = urlArrayList!![i]
+        imageViewHolder.simpleDraweeView.setImageURI(urlDataStorage?.midResUrl)
     }
 
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerAdapter.ImageViewHolder imageViewHolder, int i) {
-        urlDataStorage = urlArrayList.get(i);
-        imageViewHolder.getSimpleDraweeView().setImageURI(urlDataStorage.getMidResUrl());
+    override fun getItemCount(): Int {
+        return if (urlArrayList == null || urlArrayList!!.size == 0) 0 else urlArrayList!!.size
     }
 
-
-    @Override
-    public int getItemCount() {
-        if (urlArrayList == null || urlArrayList.size() == 0) return 0;
-        return urlArrayList.size();
-    }
-
-
-    public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-
-        SimpleDraweeView simpleDraweeView;
-        View view;
-
-
-        ImageViewHolder(@NonNull View itemView) {
-            super(itemView);
-            view = itemView;
-            simpleDraweeView = itemView.findViewById(R.id.image_view);
-            itemView.setOnClickListener(this);
-
-        }
-
-
-        SimpleDraweeView getSimpleDraweeView() {
-            return simpleDraweeView;
-        }
-
-
-        @Override
-        public void onClick(View v) {
-            UrlDataStorage ds = urlArrayList.get(getAdapterPosition());
-            Intent intent = new Intent(mContext, FullscreenActivity.class);
-            intent.putExtra("Url", ds.getHiResUrl());
-            intent.putExtra("lowUrl", ds.getLowResUrl());
-            intent.putExtra("midUrl", ds.getMidResUrl());
+    inner class ImageViewHolder internal constructor(var view: View) : RecyclerView.ViewHolder(
+        view
+    ), View.OnClickListener {
+        var simpleDraweeView: SimpleDraweeView
+        override fun onClick(v: View) {
+            val ds = urlArrayList!![adapterPosition]
+            val intent = Intent(mContext, FullscreenActivity::class.java)
+            intent.putExtra("Url", ds?.hiResUrl)
+            intent.putExtra("lowUrl", ds?.lowResUrl)
+            intent.putExtra("midUrl", ds?.midResUrl)
             /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) mContext,simpleDraweeView,"trans");
                 mContext.startActivity(intent,options.toBundle());
-            }else */
-            mContext.startActivity(intent);
+            }else */mContext.startActivity(intent)
+        }
+
+        init {
+            simpleDraweeView = itemView.findViewById(R.id.image_view)
+            itemView.setOnClickListener(this)
         }
     }
 
-
+    init {
+        this.urlArrayList = urlArrayList
+        this.mContext = mContext
+    }
 }
