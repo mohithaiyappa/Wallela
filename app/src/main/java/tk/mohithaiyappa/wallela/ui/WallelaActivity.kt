@@ -1,7 +1,8 @@
-package tk.mohithaiyappa.wallela
+package tk.mohithaiyappa.wallela.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import tk.mohithaiyappa.wallela.R
 
 class WallelaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

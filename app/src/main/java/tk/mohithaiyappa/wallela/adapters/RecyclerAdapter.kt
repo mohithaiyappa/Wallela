@@ -1,4 +1,4 @@
-package tk.mohithaiyappa.wallela
+package tk.mohithaiyappa.wallela.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import tk.mohithaiyappa.wallela.RecyclerAdapter.ImageViewHolder
+import tk.mohithaiyappa.wallela.FullscreenActivity
+import tk.mohithaiyappa.wallela.data.UrlDataStorage
+import tk.mohithaiyappa.wallela.adapters.RecyclerAdapter.ImageViewHolder
 import tk.mohithaiyappa.wallela.databinding.AlbumLayoutForRvBinding
 
 class RecyclerAdapter(

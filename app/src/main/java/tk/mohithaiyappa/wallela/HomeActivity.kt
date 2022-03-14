@@ -16,6 +16,8 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
+import tk.mohithaiyappa.wallela.adapters.RecyclerAdapter
+import tk.mohithaiyappa.wallela.data.UrlDataStorage
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
