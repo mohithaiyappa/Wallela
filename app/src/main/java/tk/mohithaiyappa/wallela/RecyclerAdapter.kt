@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import tk.mohithaiyappa.wallela.RecyclerAdapter.ImageViewHolder
 import tk.mohithaiyappa.wallela.databinding.AlbumLayoutForRvBinding
 
-class RecyclerAdapter(var urlArrayList: ArrayList<UrlDataStorage?>?, var mContext: Context) :
-    RecyclerView.Adapter<ImageViewHolder>() {
+class RecyclerAdapter(
+    var urlArrayList: ArrayList<UrlDataStorage?>?,
+    var mContext: Context
+    ) : RecyclerView.Adapter<ImageViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ImageViewHolder {
         val binding = AlbumLayoutForRvBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
