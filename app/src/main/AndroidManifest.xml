@@ -31,10 +31,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".HomeActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MainActivity"
             android:configChanges="orientation"
             android:exported="true"

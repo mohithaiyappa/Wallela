@@ -7,6 +7,7 @@ import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
+import tk.mohithaiyappa.wallela.ui.WallelaActivity
 
 class MainActivity : AppCompatActivity() {
     private var decorView: View? = null
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             override fun onAnimationEnd(animation: Animator) {
                 val handler = Handler()
                 handler.postDelayed({
-                    val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                    val intent = Intent(this@MainActivity, WallelaActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     finish()
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             override fun onAnimationCancel(animation: Animator) {
                 val handler = Handler()
                 handler.postDelayed({
-                    val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                    val intent = Intent(this@MainActivity, WallelaActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     finish()

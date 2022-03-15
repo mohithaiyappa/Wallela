@@ -1,26 +1,32 @@
-package tk.mohithaiyappa.wallela
+package tk.mohithaiyappa.wallela.ui.home
 
 import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
+import tk.mohithaiyappa.wallela.ContactUsActivity
+import tk.mohithaiyappa.wallela.DataBaseHelper
+import tk.mohithaiyappa.wallela.R
 import tk.mohithaiyappa.wallela.adapters.RecyclerAdapter
 import tk.mohithaiyappa.wallela.data.UrlDataStorage
 import java.util.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeFragment : Fragment() {
     private var firebaseDatabase: FirebaseDatabase? = null
     private var databaseReference: DatabaseReference? = null
     private val arrayList = ArrayList<UrlDataStorage?>()
@@ -32,29 +38,39 @@ class HomeActivity : AppCompatActivity() {
     private var drawerLayout: DrawerLayout? = null
     private var inFavorites = false
     private var adView: AdView? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.activity_home, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //requireActivity().setContentView(R.layout.activity_home)
         initAdMob()
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.drawer)
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        drawerLayout = view.findViewById(R.id.drawer_layout)
+        navigationView = view.findViewById(R.id.drawer)
         val actionBarDrawerToggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar,
+            requireActivity(), drawerLayout, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawerLayout!!.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase!!.getReference("Flat-Art/")
-        layoutManager = GridLayoutManager(this, 2)
-        recyclerView = findViewById(R.id.recycler_view)
+        layoutManager = GridLayoutManager(requireContext(), 2)
+        recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView!!.setHasFixedSize(true)
         recyclerView!!.setLayoutManager(layoutManager)
         inFavorites = false
-        adapter = RecyclerAdapter(arrayList, this@HomeActivity)
-        recyclerView!!.setAdapter(adapter)
+        adapter = RecyclerAdapter(arrayList, requireContext())
+        recyclerView!!.adapter = adapter
         navigationView!!.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { menuItem ->
             recyclerView!!.scrollTo(0, 0)
             when (menuItem.itemId) {
@@ -98,7 +114,7 @@ class HomeActivity : AppCompatActivity() {
                     inFavorites = true
                 }
                 R.id.contact_us -> {
-                    val intent = Intent(this@HomeActivity, ContactUsActivity::class.java)
+                    val intent = Intent(requireContext(), ContactUsActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.privacy_policy -> {
@@ -116,13 +132,14 @@ class HomeActivity : AppCompatActivity() {
         loadDataSet()
     }
 
-    override fun onBackPressed() {
-        if (drawerLayout!!.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout!!.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
+// todo: impl back press in base fragment
+//    override fun onBackPressed() {
+//        if (drawerLayout!!.isDrawerOpen(GravityCompat.START)) {
+//            drawerLayout!!.closeDrawer(GravityCompat.START)
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
 
     fun loadDataSet() {
         databaseReference!!.addValueEventListener(object : ValueEventListener {
@@ -159,7 +176,7 @@ class HomeActivity : AppCompatActivity() {
     inner class loadAsycFavorites : AsyncTask<Any?, Any?, Any?>() {
         private var aBoolean = false
         override fun doInBackground(objects: Array<Any?>): Any? {
-            val db = DataBaseHelper(this@HomeActivity)
+            val db = DataBaseHelper(requireContext())
             aBoolean = false
             val cursor = db.data
             arrayList.clear()
@@ -181,7 +198,7 @@ class HomeActivity : AppCompatActivity() {
             super.onPostExecute(o)
             adapter!!.notifyDataSetChanged()
             if (aBoolean) {
-                Toast.makeText(this@HomeActivity, "Add something to Favorites", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Add something to Favorites", Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -195,8 +212,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initAdMob() {
-        adView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        adView!!.loadAd(adRequest)
+        //adView = findViewById(R.id.adView)
+        //val adRequest = AdRequest.Builder().build()
+        //adView!!.loadAd(adRequest)
     }
 }
