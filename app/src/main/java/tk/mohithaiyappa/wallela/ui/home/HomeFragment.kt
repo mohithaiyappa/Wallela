@@ -19,14 +19,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
-import tk.mohithaiyappa.wallela.ContactUsActivity
+import tk.mohithaiyappa.wallela.ui.contactus.ContactUsFragment
 import tk.mohithaiyappa.wallela.DataBaseHelper
 import tk.mohithaiyappa.wallela.R
 import tk.mohithaiyappa.wallela.adapters.RecyclerAdapter
 import tk.mohithaiyappa.wallela.data.UrlDataStorage
+import tk.mohithaiyappa.wallela.databinding.ActivityHomeBinding
 import java.util.*
 
 class HomeFragment : Fragment() {
+
+    private var binding: ActivityHomeBinding? = null
     private var firebaseDatabase: FirebaseDatabase? = null
     private var databaseReference: DatabaseReference? = null
     private val arrayList = ArrayList<UrlDataStorage?>()
@@ -43,14 +46,14 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.activity_home, container, false)
+    ): View {
+        binding = ActivityHomeBinding.inflate(inflater)
+        return binding!!.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //requireActivity().setContentView(R.layout.activity_home)
         initAdMob()
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
@@ -114,8 +117,16 @@ class HomeFragment : Fragment() {
                     inFavorites = true
                 }
                 R.id.contact_us -> {
-                    val intent = Intent(requireContext(), ContactUsActivity::class.java)
-                    startActivity(intent)
+                    //val intent = Intent(requireContext(), ContactUsActivity::class.java)
+                    //startActivity(intent)
+                    if(binding!!.drawerLayout.isDrawerOpen(GravityCompat.START))
+                        binding!!.drawerLayout.closeDrawer(GravityCompat.START)
+                    requireActivity()
+                        .supportFragmentManager
+                        .beginTransaction()
+                        .replace(binding!!.root.id, ContactUsFragment())
+                        .addToBackStack(null)
+                        .commit()
                 }
                 R.id.privacy_policy -> {
                     startActivity(

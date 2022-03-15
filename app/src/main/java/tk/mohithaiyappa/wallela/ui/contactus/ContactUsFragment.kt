@@ -1,26 +1,37 @@
-package tk.mohithaiyappa.wallela
+package tk.mohithaiyappa.wallela.ui.contactus
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import tk.mohithaiyappa.wallela.databinding.ActivityContactUsBinding
 
-class ContactUsActivity : AppCompatActivity() {
+class ContactUsFragment : Fragment() {
 
     private var binding: ActivityContactUsBinding? = null
     private val recipient = arrayOf("wallela@protonmail.com")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = ActivityContactUsBinding.inflate(layoutInflater)
-        setContentView(binding!!.root)
+        return binding!!.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)  {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding!!.root.setOnClickListener(null)
 
         binding!!.fabSendMail.setOnClickListener {
             if (!binding!!.etMessage.text.isNullOrEmpty() || !binding!!.etSubject.text.isNullOrEmpty()) sendMail() else {
                 Toast.makeText(
-                    this@ContactUsActivity,
+                    requireContext(),
                     "Subject or Message cannot be empty",
                     Toast.LENGTH_SHORT
                 ).show()
@@ -35,6 +46,6 @@ class ContactUsActivity : AppCompatActivity() {
         intent.putExtra(Intent.EXTRA_TEXT, binding!!.etMessage.text.toString())
         intent.type = "message/rfc822"
         startActivity(Intent.createChooser(intent, "Choose an email client"))
-        finish()
+        // todo finish()
     }
 }
