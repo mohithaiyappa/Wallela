@@ -1,15 +1,14 @@
 package tk.mohithaiyappa.wallela.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import tk.mohithaiyappa.wallela.FullscreenActivity
 import tk.mohithaiyappa.wallela.data.UrlDataStorage
 import tk.mohithaiyappa.wallela.adapters.RecyclerAdapter.ImageViewHolder
 import tk.mohithaiyappa.wallela.databinding.AlbumLayoutForRvBinding
+import tk.mohithaiyappa.wallela.ui.WallelaActivity
 
 class RecyclerAdapter(
     var urlArrayList: ArrayList<UrlDataStorage?>?,
@@ -37,11 +36,12 @@ class RecyclerAdapter(
 
         private fun onClick(v: View) {
             val ds = urlArrayList!![adapterPosition]
-            val intent = Intent(mContext, FullscreenActivity::class.java)
-            intent.putExtra("Url", ds?.hiResUrl)
-            intent.putExtra("lowUrl", ds?.lowResUrl)
-            intent.putExtra("midUrl", ds?.midResUrl)
-            mContext.startActivity(intent)
+            (mContext as WallelaActivity).gotoFullScreenFragment(ds!!)
+//            val intent = Intent(mContext, FullscreenActivity::class.java)
+//            intent.putExtra("Url", ds?.hiResUrl)
+//            intent.putExtra("lowUrl", ds?.lowResUrl)
+//            intent.putExtra("midUrl", ds?.midResUrl)
+//            mContext.startActivity(intent)
         }
     }
 }

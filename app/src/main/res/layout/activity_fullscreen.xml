@@ -6,99 +6,106 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1A004D40"
-    tools:context=".FullscreenActivity">
+    android:background="#FFFFFF"
+    tools:context=".ui.fullscreen.FullscreenFragment">
 
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/full_screen_animation_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        app:lottie_autoPlay="false"
-        app:lottie_fileName="space_ship.json"
-        app:lottie_loop="true" />
+        android:background="#1A004D40">
 
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:theme="@style/FabThemeMini"
-        fab:menu_animationDelayPerItem="50"
-        fab:menu_backgroundColor="@android:color/transparent"
-        fab:menu_buttonSpacing="0dp"
-        fab:menu_colorNormal="#1BD9D3"
-        fab:menu_colorPressed="#1FF8F1"
-        fab:menu_colorRipple="#99FFFFFF"
-        fab:menu_fab_hide_animation="@anim/my_hide_animation"
-        fab:menu_fab_show_animation="@anim/my_show_animation"
-        fab:menu_fab_size="normal"
-        fab:menu_icon="@drawable/fab_add"
-        fab:menu_labels_colorNormal="#ffffff"
-        fab:menu_labels_colorPressed="#444444"
-        fab:menu_labels_colorRipple="#66FFFFFF"
-        fab:menu_labels_cornerRadius="15dp"
-        fab:menu_labels_ellipsize="none"
-        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-        fab:menu_labels_margin="0dp"
-        fab:menu_labels_maxLines="-1"
-        fab:menu_labels_padding="8dp"
-        fab:menu_labels_paddingBottom="4dp"
-        fab:menu_labels_paddingLeft="8dp"
-        fab:menu_labels_paddingRight="8dp"
-        fab:menu_labels_paddingTop="4dp"
-        fab:menu_labels_position="left"
-        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-        fab:menu_labels_showShadow="true"
-        fab:menu_labels_singleLine="false"
-        fab:menu_labels_textColor="#1BD9D3"
-        fab:menu_labels_textSize="14sp"
-        fab:menu_openDirection="up"
-        fab:menu_shadowColor="#66000000"
-        fab:menu_shadowRadius="4dp"
-        fab:menu_shadowXOffset="1dp"
-        fab:menu_shadowYOffset="3dp"
-        fab:menu_showShadow="true">
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/action_setWallpaper"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/full_screen_animation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="space_ship.json"
+            app:lottie_loop="true" />
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_set_wallpaper"
-            fab:fab_label="Please Wait"
-            fab:fab_size="mini" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:theme="@style/FabThemeMini"
+            fab:menu_animationDelayPerItem="50"
+            fab:menu_backgroundColor="@android:color/transparent"
+            fab:menu_buttonSpacing="0dp"
+            fab:menu_colorNormal="#1BD9D3"
+            fab:menu_colorPressed="#1FF8F1"
+            fab:menu_colorRipple="#99FFFFFF"
+            fab:menu_fab_hide_animation="@anim/my_hide_animation"
+            fab:menu_fab_show_animation="@anim/my_show_animation"
+            fab:menu_fab_size="normal"
+            fab:menu_icon="@drawable/fab_add"
+            fab:menu_labels_colorNormal="#ffffff"
+            fab:menu_labels_colorPressed="#444444"
+            fab:menu_labels_colorRipple="#66FFFFFF"
+            fab:menu_labels_cornerRadius="15dp"
+            fab:menu_labels_ellipsize="none"
+            fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+            fab:menu_labels_margin="0dp"
+            fab:menu_labels_maxLines="-1"
+            fab:menu_labels_padding="8dp"
+            fab:menu_labels_paddingBottom="4dp"
+            fab:menu_labels_paddingLeft="8dp"
+            fab:menu_labels_paddingRight="8dp"
+            fab:menu_labels_paddingTop="4dp"
+            fab:menu_labels_position="left"
+            fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+            fab:menu_labels_showShadow="true"
+            fab:menu_labels_singleLine="false"
+            fab:menu_labels_textColor="#1BD9D3"
+            fab:menu_labels_textSize="14sp"
+            fab:menu_openDirection="up"
+            fab:menu_shadowColor="#66000000"
+            fab:menu_shadowRadius="4dp"
+            fab:menu_shadowXOffset="1dp"
+            fab:menu_shadowYOffset="3dp"
+            fab:menu_showShadow="true">
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/action_download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_file_download_black_24dp"
-            fab:fab_label="Please Wait"
-            fab:fab_size="mini" />
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/action_setWallpaper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_set_wallpaper"
+                fab:fab_label="Please Wait"
+                fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/saveAsFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_favorite_white"
-            fab:fab_label="Please Wait"
-            fab:fab_size="mini" />
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/action_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_file_download_black_24dp"
+                fab:fab_label="Please Wait"
+                fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/setAsLockScreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/saveAsFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite_white"
+                fab:fab_label="Please Wait"
+                fab:fab_size="mini" />
 
-            android:src="@drawable/ic_screen_lock_portrait_black_24dp"
-            fab:fab_label="Please Wait"
-            fab:fab_size="mini" />
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/setAsLockScreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-    </com.github.clans.fab.FloatingActionMenu>
+                android:src="@drawable/ic_screen_lock_portrait_black_24dp"
+                fab:fab_label="Please Wait"
+                fab:fab_size="mini" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
