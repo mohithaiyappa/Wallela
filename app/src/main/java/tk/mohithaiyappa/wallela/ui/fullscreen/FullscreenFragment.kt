@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import tk.mohithaiyappa.wallela.DataBaseHelper
 import tk.mohithaiyappa.wallela.R
 import tk.mohithaiyappa.wallela.databinding.ActivityFullscreenBinding
@@ -33,6 +34,7 @@ import java.util.*
 class FullscreenFragment : Fragment() {
 
     private var binding: ActivityFullscreenBinding? = null
+    private val args by navArgs<FullscreenFragmentArgs>()
 
     private var url: String? = null
     private var midUrl: String? = null
@@ -53,10 +55,10 @@ class FullscreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val args = arguments
-        url = args?.getString("Url")
-        lowUrl = args?.getString("lowUrl")
-        midUrl = args?.getString("midUrl")
+        //val args = arguments
+        url = args.data.hiResUrl//args?.getString("Url")
+        lowUrl = args.data.lowResUrl
+        midUrl = args.data.midResUrl
         downloadImage().execute()
 
         binding!!.fullScreenAnimationView.playAnimation()

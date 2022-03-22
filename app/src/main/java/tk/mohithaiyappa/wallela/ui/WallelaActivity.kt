@@ -16,31 +16,5 @@ class WallelaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWallelaBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
-        supportFragmentManager
-            .beginTransaction()
-            .add(binding!!.root.id, SplashFragment())
-            .commit()
-    }
-
-    fun gotoHomeFragment(){
-        supportFragmentManager
-            .beginTransaction()
-            .replace(binding!!.root.id, HomeFragment())
-            .commit()
-    }
-
-    fun gotoFullScreenFragment(data: UrlDataStorage){
-        val fullScreenFrag = FullscreenFragment()
-        val bundle = Bundle()
-        bundle.putString("Url", data.hiResUrl)
-        bundle.putString("lowUrl", data.lowResUrl)
-        bundle.putString("midUrl", data.midResUrl)
-        fullScreenFrag.arguments = bundle
-
-        supportFragmentManager
-            .beginTransaction()
-            .add(binding!!.root.id,fullScreenFrag)
-            .addToBackStack(null)
-            .commit()
     }
 }

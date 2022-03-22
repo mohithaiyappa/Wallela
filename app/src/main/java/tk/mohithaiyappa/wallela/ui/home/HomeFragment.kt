@@ -25,6 +25,8 @@ import tk.mohithaiyappa.wallela.R
 import tk.mohithaiyappa.wallela.adapters.RecyclerAdapter
 import tk.mohithaiyappa.wallela.data.UrlDataStorage
 import tk.mohithaiyappa.wallela.databinding.ActivityHomeBinding
+import tk.mohithaiyappa.wallela.navigation.NavigatorImpl
+import tk.mohithaiyappa.wallela.ui.WallelaActivity
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -41,12 +43,14 @@ class HomeFragment : Fragment() {
     private var drawerLayout: DrawerLayout? = null
     private var inFavorites = false
     private var adView: AdView? = null
+    private var navigator: NavigatorImpl? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        navigator = NavigatorImpl(requireActivity() as WallelaActivity)
         binding = ActivityHomeBinding.inflate(inflater)
         return binding!!.root
     }
@@ -72,7 +76,7 @@ class HomeFragment : Fragment() {
         recyclerView!!.setHasFixedSize(true)
         recyclerView!!.setLayoutManager(layoutManager)
         inFavorites = false
-        adapter = RecyclerAdapter(arrayList, requireContext())
+        adapter = RecyclerAdapter(arrayList, requireContext(), navigator!!)
         recyclerView!!.adapter = adapter
         navigationView!!.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { menuItem ->
             recyclerView!!.scrollTo(0, 0)
@@ -121,12 +125,13 @@ class HomeFragment : Fragment() {
                     //startActivity(intent)
                     if(binding!!.drawerLayout.isDrawerOpen(GravityCompat.START))
                         binding!!.drawerLayout.closeDrawer(GravityCompat.START)
-                    requireActivity()
-                        .supportFragmentManager
-                        .beginTransaction()
-                        .replace(binding!!.root.id, ContactUsFragment())
-                        .addToBackStack(null)
-                        .commit()
+//                    requireActivity()
+//                        .supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(binding!!.root.id, ContactUsFragment())
+//                        .addToBackStack(null)
+//                        .commit()
+                    navigator!!.gotoContactUsFragment()
                 }
                 R.id.privacy_policy -> {
                     startActivity(
@@ -140,6 +145,8 @@ class HomeFragment : Fragment() {
             freeMemory()
             true
         })
+
+
         loadDataSet()
     }
 
@@ -172,6 +179,11 @@ class HomeFragment : Fragment() {
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        //outState.putParcelableArrayList("list", arrayList)
+        super.onSaveInstanceState(outState)
     }
 
     fun freeMemory() {

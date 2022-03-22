@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import tk.mohithaiyappa.wallela.data.UrlDataStorage
 import tk.mohithaiyappa.wallela.adapters.RecyclerAdapter.ImageViewHolder
 import tk.mohithaiyappa.wallela.databinding.AlbumLayoutForRvBinding
+import tk.mohithaiyappa.wallela.navigation.NavigatorImpl
 import tk.mohithaiyappa.wallela.ui.WallelaActivity
 
 class RecyclerAdapter(
     var urlArrayList: ArrayList<UrlDataStorage?>?,
-    var mContext: Context
+    var mContext: Context,
+    val navigator: NavigatorImpl
     ) : RecyclerView.Adapter<ImageViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ImageViewHolder {
@@ -36,7 +38,7 @@ class RecyclerAdapter(
 
         private fun onClick(v: View) {
             val ds = urlArrayList!![adapterPosition]
-            (mContext as WallelaActivity).gotoFullScreenFragment(ds!!)
+            navigator.gotoFullScreenFragment(ds!!)
 //            val intent = Intent(mContext, FullscreenActivity::class.java)
 //            intent.putExtra("Url", ds?.hiResUrl)
 //            intent.putExtra("lowUrl", ds?.lowResUrl)

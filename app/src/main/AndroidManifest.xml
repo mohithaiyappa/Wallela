@@ -21,7 +21,7 @@
             android:name=".ui.WallelaActivity"
             android:exported="true"
             android:screenOrientation="portrait">
-            <intent-filter>-->
+            <intent-filter>
                             <action android:name="android.intent.action.MAIN" />
                             <action android:name="android.intent.action.VIEW" />
 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="tk.mohithaiyappa.wallela.ui.splash.SplashFragment"
+        android:label="splash_fragment"
+        tools:layout="@layout/frag_splash_screen">
+
+        <action
+            android:id="@+id/navigate_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"
+            app:restoreState="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="tk.mohithaiyappa.wallela.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/activity_home">
+
+        <action
+            android:id="@+id/navigate_to_fullScreenFragment"
+            app:destination="@id/fullScreenFragment"
+            app:enterAnim="@anim/slide_in_left"
+            />
+        <action
+            android:id="@+id/navigate_to_contactUsFragment"
+            app:destination="@id/contactUsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fullScreenFragment"
+        android:name="tk.mohithaiyappa.wallela.ui.fullscreen.FullscreenFragment"
+        android:label="fullscreen_fragment"
+        tools:layout="@layout/activity_fullscreen">
+
+
+        <argument
+            android:name="data"
+            app:argType="tk.mohithaiyappa.wallela.data.UrlDataStorage" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="tk.mohithaiyappa.wallela.ui.contactus.ContactUsFragment"
+        android:label="contact_us_fragment"
+        tools:layout="@layout/activity_contact_us">
+
+        <action
+            android:id="@+id/navigate_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+</navigation>

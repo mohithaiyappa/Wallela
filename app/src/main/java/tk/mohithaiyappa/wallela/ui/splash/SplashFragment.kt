@@ -8,18 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import tk.mohithaiyappa.wallela.databinding.FragSplashScreenBinding
+import tk.mohithaiyappa.wallela.navigation.NavigatorImpl
 import tk.mohithaiyappa.wallela.ui.WallelaActivity
 
 class SplashFragment : Fragment() {
 
     private var decorView: View? = null
     private var binding: FragSplashScreenBinding? = null
+    private var navigator: NavigatorImpl? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        navigator = NavigatorImpl(requireActivity() as WallelaActivity)
         binding = FragSplashScreenBinding.inflate(inflater)
         return binding!!.root
     }
@@ -37,7 +40,7 @@ class SplashFragment : Fragment() {
             override fun onAnimationEnd(animation: Animator) {
                 val handler = Handler()
                 handler.postDelayed({
-                    (requireActivity() as WallelaActivity).gotoHomeFragment()
+                    navigator!!.gotoHomeFragment()
                     //todo
                     //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     //finish()
@@ -49,7 +52,7 @@ class SplashFragment : Fragment() {
             override fun onAnimationCancel(animation: Animator) {
                 val handler = Handler()
                 handler.postDelayed({
-                    (requireActivity() as WallelaActivity).gotoHomeFragment()
+                    navigator!!.gotoHomeFragment()
                     //todo
                     //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     //finish()
