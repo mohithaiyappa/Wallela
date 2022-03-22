@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdView
@@ -32,8 +33,8 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private var binding: ActivityHomeBinding? = null
-    private var firebaseDatabase: FirebaseDatabase? = null
-    private var databaseReference: DatabaseReference? = null
+    private val viewModel by viewModels<HomeViewModel> { HomeViewModelFactory(requireContext().applicationContext) }
+
     private val arrayList = ArrayList<UrlDataStorage?>()
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var recyclerView: RecyclerView? = null
@@ -69,8 +70,6 @@ class HomeFragment : Fragment() {
         )
         drawerLayout!!.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase!!.getReference("Flat-Art/")
         layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView!!.setHasFixedSize(true)
@@ -78,59 +77,48 @@ class HomeFragment : Fragment() {
         inFavorites = false
         adapter = RecyclerAdapter(arrayList, requireContext(), navigator!!)
         recyclerView!!.adapter = adapter
+
         navigationView!!.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { menuItem ->
             recyclerView!!.scrollTo(0, 0)
             when (menuItem.itemId) {
                 R.id.flat_art -> {
-                    databaseReference = firebaseDatabase!!.getReference("Flat-Art/")
-                    loadDataSet()
+                    viewModel.fetchDataForLabel("Flat-Art/")
                     toolbar.title = "Flat-Art"
                     drawerLayout!!.closeDrawer(GravityCompat.START)
-                    inFavorites = false
+                    viewModel.inFavorites = false
                     recyclerView!!.smoothScrollToPosition(0)
                 }
                 R.id.superhero -> {
-                    databaseReference = firebaseDatabase!!.getReference("SuperHero/")
-                    loadDataSet()
+                    viewModel.fetchDataForLabel("SuperHero/")
                     toolbar.title = "SuperHero"
                     drawerLayout!!.closeDrawer(GravityCompat.START)
-                    inFavorites = false
+                    viewModel.inFavorites = false
                     recyclerView!!.smoothScrollToPosition(0)
                 }
                 R.id.photography -> {
-                    databaseReference = firebaseDatabase!!.getReference("Photography/")
-                    loadDataSet()
+                    viewModel.fetchDataForLabel("Photography/")
                     toolbar.title = "Photography"
                     drawerLayout!!.closeDrawer(GravityCompat.START)
-                    inFavorites = false
+                    viewModel.inFavorites = false
                     recyclerView!!.smoothScrollToPosition(0)
                 }
                 R.id.nature -> {
-                    databaseReference = firebaseDatabase!!.getReference("nature/")
-                    loadDataSet()
+                    viewModel.fetchDataForLabel("nature/")
                     toolbar.title = "Nature"
                     drawerLayout!!.closeDrawer(GravityCompat.START)
-                    inFavorites = false
+                    viewModel.inFavorites = false
                     recyclerView!!.smoothScrollToPosition(0)
                 }
                 R.id.favorites -> {
                     recyclerView!!.scrollToPosition(0)
-                    loadFavorites()
+                    viewModel.loadFavorites()
                     toolbar.title = "Favorites"
                     drawerLayout!!.closeDrawer(GravityCompat.START)
-                    inFavorites = true
+                    viewModel.inFavorites = true
                 }
                 R.id.contact_us -> {
-                    //val intent = Intent(requireContext(), ContactUsActivity::class.java)
-                    //startActivity(intent)
                     if(binding!!.drawerLayout.isDrawerOpen(GravityCompat.START))
                         binding!!.drawerLayout.closeDrawer(GravityCompat.START)
-//                    requireActivity()
-//                        .supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(binding!!.root.id, ContactUsFragment())
-//                        .addToBackStack(null)
-//                        .commit()
                     navigator!!.gotoContactUsFragment()
                 }
                 R.id.privacy_policy -> {
@@ -142,12 +130,14 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-            freeMemory()
             true
         })
 
-
-        loadDataSet()
+        viewModel.urlListLiveData.observe(viewLifecycleOwner) {
+            arrayList.clear()
+            arrayList.addAll(it)
+            adapter!!.notifyDataSetChanged()
+        }
     }
 
 // todo: impl back press in base fragment
@@ -159,78 +149,10 @@ class HomeFragment : Fragment() {
 //        }
 //    }
 
-    fun loadDataSet() {
-        databaseReference!!.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                arrayList.clear()
-                for (data in dataSnapshot.children) {
-                    val urlDataStorage = UrlDataStorage(
-                        data.child("midResUrl").getValue(
-                            String::class.java
-                        ),
-                        data.child("Url").getValue(String::class.java),
-                        data.child("lowResUrl").getValue(String::class.java)
-                    )
-                    arrayList.add(urlDataStorage)
-                }
-                Collections.shuffle(arrayList)
-                adapter!!.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        //outState.putParcelableArrayList("list", arrayList)
-        super.onSaveInstanceState(outState)
-    }
-
-    fun freeMemory() {
-        System.runFinalization()
-        Runtime.getRuntime().gc()
-        System.gc()
-    }
-
-    fun loadFavorites() {
-        loadAsycFavorites().execute()
-    }
-
-    inner class loadAsycFavorites : AsyncTask<Any?, Any?, Any?>() {
-        private var aBoolean = false
-        override fun doInBackground(objects: Array<Any?>): Any? {
-            val db = DataBaseHelper(requireContext())
-            aBoolean = false
-            val cursor = db.data
-            arrayList.clear()
-            if (cursor == null) {
-                aBoolean = true
-            } else {
-                while (cursor.moveToNext()) {
-                    val urlDataStorage = UrlDataStorage(
-                        cursor.getString(2),
-                        cursor.getString(3), cursor.getString(1)
-                    )
-                    arrayList.add(urlDataStorage)
-                }
-            }
-            return null
-        }
-
-        override fun onPostExecute(o: Any?) {
-            super.onPostExecute(o)
-            adapter!!.notifyDataSetChanged()
-            if (aBoolean) {
-                Toast.makeText(requireContext(), "Add something to Favorites", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-    }
-
     override fun onResume() {
         super.onResume()
-        if (inFavorites) {
-            loadAsycFavorites().execute()
+        if (viewModel.inFavorites) {
+            viewModel.loadFavorites()
         }
     }
 
