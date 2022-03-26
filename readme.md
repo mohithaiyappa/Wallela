@@ -1,1 +1,3 @@
-###WALLELA
+# Wallela
+
+## _A Wallpaper Application_
